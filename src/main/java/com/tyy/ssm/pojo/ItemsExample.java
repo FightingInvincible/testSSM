@@ -5,6 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 public class ItemsExample {
+    //新增属性
+    private Integer begin;
+
+    public Integer getBegin() {
+        return begin;
+    }
+
+    public void setBegin(Integer begin) {
+        this.begin = begin;
+    }
+
     protected String orderByClause;
 
     protected boolean distinct;

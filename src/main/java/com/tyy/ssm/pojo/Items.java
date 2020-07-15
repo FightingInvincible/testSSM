@@ -1,5 +1,7 @@
 package com.tyy.ssm.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Items {
@@ -10,7 +12,7 @@ public class Items {
     private Float price;
 
     private String pic;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createtime;
 
     private String detail;

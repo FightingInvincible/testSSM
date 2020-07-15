@@ -10,6 +10,8 @@
 	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
+	<script src="${pageContext.request.contextPath}/js/items.js"></script>
+
 </head>
 <body>
 <div class="container">
@@ -17,13 +19,13 @@
 		<div class="col-md-6 col-lg-6">
 			<div class="input-group">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" onclick="">查找</button>
+                        <button id="btn_search" class="btn btn-default" type="button" onclick="queryByName('${pageContext.request.contextPath}')">查找</button>
                     </span>
-				<input type="text" class="form-control" placeholder="Search by name" id="searchName">
+				<input type="text" value="${vo.query}" class="form-control" placeholder="Search by name" id="searchName" autofocus="autofocus">
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-4">
-			<input class="btn btn-success" type="button" value="增加商品" onclick="">
+			<a href="addItem.jsp" class="btn btn-success">增加商品</a>
 			<input class="btn btn-danger" type="button" value="删除所有" onclick="">
 		</div>
 	</div>
@@ -39,7 +41,7 @@
 				<th style="text-align:center">商品图片</th>
 				<th style="text-align:center">操作</th>
 			</tr>
-			<c:forEach items="${itemsList}" var="items">
+			<c:forEach items="${vo.itemsList}" var="items">
 				<tr class="data" align="center">
 					<td class="datachoose"><input type="checkbox" class="single"></td>
 					<td class="id">${items.id}</td>
@@ -60,18 +62,33 @@
 			</c:forEach>
 			<tr align="center">
 				<td colspan="8">
-					<input class="btn btn-success" type="button" value="首页"
-						   onclick=""/>&nbsp;&nbsp;
-					<input class="btn btn-success" type="button" id="pre" value="上一页"
-						   onclick=""/>&nbsp;&nbsp;
+					<c:if test="${vo.pageNow==1}">
+						<input class="btn btn-success" disabled="disabled" type="button" value="首页"/>&nbsp;&nbsp;
+						<input class="btn btn-success" disabled="disabled" type="button" id="pre" value="上一页"/>
+					</c:if>
+					<c:if test="${vo.pageNow!=1}">
+						<input class="btn btn-success" type="button" value="首页"
+							   onclick="firstPage('${pageContext.request.contextPath}')"/>&nbsp;&nbsp;
+
+						<input class="btn btn-success" type="button" id="pre" value="上一页"
+							   onclick="prePage('${pageContext.request.contextPath}',${vo.myPages})"/>&nbsp;&nbsp;
+					</c:if>
+
 					<!-- 当前页 -->
-					<input type="text" id="pageNow" value="1" style="text-align:center"/>&nbsp;&nbsp;
+					<input type="text" id="pageNow" value="${vo.pageNow}" style="text-align:center"/>&nbsp;&nbsp;
 					<input class="btn btn-success" type="button" value="跳转"
-						   onclick=""/>&nbsp;&nbsp;
-					<input class="btn btn-success" type="button" id="next" value="下一页"
-						   onclick=""/>&nbsp;&nbsp;
-					<input class="btn btn-success" type="button" value="末页"
-						   onclick=""/>&nbsp;&nbsp;
+						   onclick="skipPage('${pageContext.request.contextPath}',${vo.myPages})"/>&nbsp;&nbsp;
+					<c:if test="${vo.pageNow==vo.myPages}">
+						<input class="btn btn-success" disabled="disabled" type="button" id="next" value="下一页"/>&nbsp;&nbsp;
+						<input class="btn btn-success" disabled="disabled" type="button" value="末页"/>&nbsp;&nbsp;
+					</c:if>
+					<c:if test="${vo.pageNow!=vo.myPages}">
+						<input class="btn btn-success" type="button" id="next" value="下一页"
+							   onclick="nextPage('${pageContext.request.contextPath}',${vo.myPages})"/>&nbsp;&nbsp;
+						<input class="btn btn-success" type="button" value="末页"
+							   onclick="lastPage('${pageContext.request.contextPath}',${vo.myPages})"/>&nbsp;&nbsp;
+					</c:if>
+
 				</td>
 			</tr>
 		</table>

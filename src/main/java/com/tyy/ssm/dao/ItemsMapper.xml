@@ -90,6 +90,11 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+     <!--分页条件-->
+    <if test="begin!=null">
+      limit ${begin},3
+    </if>
+
   </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tyy.ssm.pojo.ItemsExample" >
     select
