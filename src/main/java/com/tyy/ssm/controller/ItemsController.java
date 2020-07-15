@@ -47,7 +47,7 @@ public class ItemsController {
         if(file!=null){
             //获得原始图片名称
             String oldName = file.getOriginalFilename();
-            System.out.println("oldName = "+oldName);
+            //System.out.println("oldName = "+oldName);
             //当前若上传图片
             if(oldName!=null && oldName.length()>0){
                 //产生新的图片名称 = 随机数+原图片的后缀
@@ -64,6 +64,52 @@ public class ItemsController {
         //添加商品
         service.add(items);
         //为了避免重复提交表单的操作，可以选择重定向，地址栏显示目标地址
+        return "redirect:findAll.action";
+    }
+    @RequestMapping("/del.action")
+    public String del(Integer id){
+        if(id!=null){
+            service.del(id);
+        }
+        return "redirect:findAll.action";
+    }
+    @RequestMapping("/delAll.action")
+    public String delAll(String ids){
+        String[] idList=ids.split(",");
+        for (String str_id:idList){
+            if(str_id!=null&&str_id!=""){
+                Integer id=Integer.parseInt(str_id) ;
+                service.del(id);
+            }
+        }
+        return "redirect:findAll.action";
+    }
+    @RequestMapping("/findById.action")
+    public String findById(Integer id,Model model){
+        Items item=service.findById(id);
+        model.addAttribute("item",item);
+        return "editItem.jsp";
+    }
+    @RequestMapping("/update.action")
+    public String update(Items items,MultipartFile file) throws IOException {
+        //上传图片
+        if(file!=null){
+            //获得原始图片名称
+            String oldName = file.getOriginalFilename();
+            //System.out.println("oldName = "+oldName);
+            //当前若上传图片
+            if(oldName!=null && oldName.length()>0){
+                //产生新的图片名称 = 随机数+原图片的后缀
+                String newName = UUID.randomUUID()+oldName.substring(oldName.lastIndexOf("."));
+
+                //将此图片上传至本地图片服务器路径
+                file.transferTo(new File("E:\\WorkSpace\\Idea\\temp\\"+newName));
+
+                //将此图片传值到items商品中
+                items.setPic("/pic/"+newName);
+            }
+        }
+        service.update(items);
         return "redirect:findAll.action";
     }
 }

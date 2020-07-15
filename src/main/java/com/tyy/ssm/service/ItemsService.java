@@ -50,8 +50,21 @@ public class ItemsService {
         PageVO vo = new PageVO(pageNow,myPages,query,begin,itemsList);
         return vo;
     }
+    public Items findById(Integer id){
+        Items item=mapper.selectByPrimaryKey(id);
+        return item;
+    }
     //添加商品
     public void add(Items items){
         mapper.insertSelective(items);
     }
+    //删除商品
+    public void del(Integer id){
+        mapper.deleteByPrimaryKey(id);
+    }
+    //修改商品
+    public void update(Items items){
+        mapper.updateByPrimaryKeySelective(items);
+    }
+
 }

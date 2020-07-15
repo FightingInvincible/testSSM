@@ -243,15 +243,15 @@
       <if test="price != null" >
         price = #{price,jdbcType=REAL},
       </if>
-      <if test="pic != null" >
+      <!--<if test="pic != null" >-->
         pic = #{pic,jdbcType=VARCHAR},
-      </if>
+      <!--</if>-->
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="detail != null" >
+      <!--<if test="detail != null" >-->
         detail = #{detail,jdbcType=LONGVARCHAR},
-      </if>
+      <!--</if>-->
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

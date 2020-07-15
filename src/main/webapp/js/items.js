@@ -85,3 +85,25 @@ function skipPage(url,myPages) {
         window.location.href=url+"/items/findAll.action?query="+query+"&pageNow="+pageNow;
     }
 }
+
+function del(url,id) {
+    if (window.confirm('确定删除选择的商品吗？')) {
+        window.location.href = url + "/items/del.action?id=" + id;
+    }
+}
+
+function delAll(url) {
+    if (window.confirm('确定删除选择的商品吗？')) {
+        var ids = '';
+        $('input:checkbox[name=chooce_item]:checked').each(function (k) {
+            if (k == 0) {
+                ids = $(this).val();
+            } else {
+                ids += ',' + $(this).val();
+            }
+        })
+        if (ids != '') {
+            window.location.href = url + "/items/delAll.action?ids=" + ids;
+        }
+    }
+}

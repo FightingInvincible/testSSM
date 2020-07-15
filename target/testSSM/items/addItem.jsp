@@ -6,14 +6,15 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>修改商品信息</title>
+	<title>添加商品</title>
 	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
 </head>
 <body>
 	<div class="container" style="margin-top: 100px">
 		<h2 class="form-group">添加商品</h2>
-		<form id="f" action="" method="post" enctype="multipart/form-data">
+		<%-- enctype="multipart/form-data" 表单将以二进制数据传递 --%>
+		<form id="f" action="${pageContext.request.contextPath}/items/add.action" method="post" enctype="multipart/form-data">
 			<div class="form-group" hidden="hidden">
 				<label for="id">商品id</label>
 				<input type="text" class="form-control" id="id" placeholder="id" name="id">

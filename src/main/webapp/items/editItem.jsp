@@ -12,31 +12,33 @@
 <body>
 <div class="container" style="margin-top: 100px">
 	<h2 class="form-group">修改商品</h2>
-	<form id="f" action="" method="post" enctype="multipart/form-data">
+	<form id="f" action="${pageContext.request.contextPath}/items/update.action" method="post" enctype="multipart/form-data">
 		<div class="form-group" hidden="hidden">
 			<label for="id">商品id</label>
-			<input type="text" class="form-control" id="id" placeholder="id" name="id">
+			<input type="text" value="${item.id}" class="form-control" id="id" placeholder="id" name="id" readonly="readonly">
 		</div>
 		<div class="form-group">
 			<label for="name">商品名称</label>
-			<input type="text" class="form-control" id="name" placeholder="name" name="name" required="required">
+			<input type="text" value="${item.name}" class="form-control" id="name" placeholder="name" name="name" required="required">
 		</div>
 		<div class="form-group">
 			<label for="detail">商品描述</label>
-			<input type="text" class="form-control" id="detail" placeholder="desc" name="detail">
+			<input type="text" value="${item.detail}" class="form-control" id="detail" placeholder="desc" name="detail">
 		</div>
 		<div class="form-group">
 			<label for="price">商品价格</label>
-			<input type="text" class="form-control" id="price" placeholder="price" name="price" required="required">
+			<input type="text" value="${item.price}" class="form-control" id="price" placeholder="price" name="price" required="required">
 		</div>
 		<div class="form-group">
 			<label for="pic">商品图片</label>
-			<img id="pic" name="pic" width="100" height="100" />
+			<c:if test="${item.pic!=null && item.pic!=''}">
+			     <img id="pic" src="${item.pic}" name="pic" width="100" height="100" />
+			</c:if>
 			<input type="file" class="form-control" id="file" placeholder="file" name="file" onchange="showPreview(this)">
 		</div>
 		<div class="form-group">
 			<label for="createtime">生产日期</label>
-			<input type="date" class="form-control" id="createtime" placeholder="createtime" name="createtime">
+			<input type="date" value="<fmt:formatDate value='${item.createtime}' pattern='yyyy-MM-dd'/>" class="form-control" id="createtime" placeholder="createtime" name="createtime">
 		</div>
 		<button type="submit" class="btn btn-success">提交</button>
 	</form>
